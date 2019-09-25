@@ -44,7 +44,7 @@ for i = 1:size(N,2)
     %% solve the linear system of equations 
     RES = double(A\B);
     %% Plot the results
-    plot(z(1:end-1),[T0 RES(1:end-1)']);
+    plot(z(1:end),[T0 RES(1:end)']);
     leg(i) = {['N=' num2str(N(i)) ', dt=' num2str(dz)]};
 end
 legend(leg);
@@ -83,7 +83,7 @@ for i = 1:size(v,2) % loop over total number of timesteps
     %% solve the linear system of equations 
     RES = double(A\B);
     %% Plot the results
-    plot(z(1:end-1),[T0 RES(1:end-1)']);
+    plot(z(1:end),[T0 RES(1:end)']);
     leg(i) = {['v=' num2str(v(i))]};
 end
 legend(leg);
@@ -122,7 +122,7 @@ for i = 1:size(N,2);
     %% solve the linear system of equations 
     RES = double(A\B);
     %% Plot the results
-    plot(z(1:end-1),[T0 RES(1:end-1)']);
+    plot(z(1:end),[T0 RES(1:end)']);
     leg(i) = {['N=' num2str(N(i)) ', dt=' num2str(dz)]};
 end
 legend(leg);
@@ -161,7 +161,7 @@ for i = 1:size(N,2)
     %% solve the linear system of equations 
     RES = double(A\B);
     %% Plot the results
-    plot(z(1:end-1),[T0 RES(1:end-1)']);
+    plot(z(1:end),[T0 RES(1:end)']);
     leg(i) = {['N=' num2str(N(i)) ', dt=' num2str(dz)]};
 end
 legend(leg);
@@ -169,3 +169,17 @@ title(['v=' num2str(v) ', Upwind difference' ]);
 xlabel('distance');
 ylabel('temperature');
 grid on; box on;
+
+
+function out = q_calc(A0, min_value, max_value, list)
+count=1;
+for  element = list
+    if  (element>=min_value) && (element<=max_value)
+        out(count)= A0*sin((element-min_value)*pi/(max_value-min_value));
+        count=count+1;
+    else
+        out(count) = 0;
+        count=count+1;
+    end
+end
+end
